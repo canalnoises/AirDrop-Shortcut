@@ -3,9 +3,10 @@ use scripting additions
 
 -- This script brings up the AirDrop dialog for the selected file(s) in Finder (window or desktop)
 -- Isaac Nelson 17 Jan 2018
--- Updated 28 Mar 2018 to make it work in an Automator workflow
 -- Vastly improved by implementing Aviral Bansal's fix for UI scripting slowness: https://stackoverflow.com/a/36370637/9278116
 
+-- Updated 28 Mar 2018 to make it work in an Automator workflow
+-- Updated 17 Dec 2019 to fix issue with comparison between parentPath and desktopPath
 
 tell application "Finder"
 	set sel to get the selection
@@ -15,7 +16,7 @@ tell application "Finder"
 		return
 	end if
 	
-	set parentPath to (container of item 1 of sel)
+	set parentPath to (container of item 1 of sel) as alias
 	set desktopPath to (path to desktop folder)
 	if desktopPath is equal to parentPath then reveal sel
 	
